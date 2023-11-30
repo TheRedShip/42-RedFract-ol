@@ -46,7 +46,7 @@ int	main(void)
 		int j = 0;
 		while (j < 720)
 		{
-			my_mlx_pixel_put(&img, i, j, 0x00FFFFFF - j * 256);
+			my_mlx_pixel_put(&img, i, j, 0x00FFFFFF);
 			j++;
 		}
 		i++;
