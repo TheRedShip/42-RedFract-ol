@@ -6,7 +6,7 @@
 /*   By: ycontre <ycontre@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/30 15:11:53 by ycontre           #+#    #+#             */
-/*   Updated: 2023/12/01 19:14:56 by ycontre          ###   ########.fr       */
+/*   Updated: 2023/12/01 19:55:29 by ycontre          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,8 @@ typedef struct s_fractol {
 	double 	y_set;
 	double 	complex_x;
 	double 	complex_y;
+	int 	is_julia_fixed;
+	int		pan;
 }				t_fractol;
 
 # define WIDTH 960
