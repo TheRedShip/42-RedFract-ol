@@ -6,7 +6,7 @@
 /*   By: ycontre <ycontre@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/30 15:12:57 by ycontre           #+#    #+#             */
-/*   Updated: 2023/12/01 19:04:13 by ycontre          ###   ########.fr       */
+/*   Updated: 2023/12/01 19:18:15 by ycontre          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,7 +65,7 @@ void	choose_fractol(t_fractol *fractol, char **argv)
 int	main(int argc, char **argv)
 {
 	t_fractol	*fractol;
-
+	
 	fractol = ft_calloc(1, sizeof(t_fractol));
 	if (!fractol)
 		return (-1);
@@ -73,6 +73,7 @@ int	main(int argc, char **argv)
 	{
 		init_fractol(fractol);
 		choose_fractol(fractol, argv);
+		
 		mlx_mouse_hook(fractol->mlx_win, mouse_hook, fractol);
 		mlx_key_hook(fractol->mlx_win, key_hook, fractol);
 		mlx_hook(fractol->mlx_win, 17, 1L << 2, destroy, fractol);
