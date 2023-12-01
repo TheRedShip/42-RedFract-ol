@@ -26,10 +26,14 @@ INCLUDE		=	-I.
 LIBFT			=	-L./libft -lft
 
 SRCS		=	mandatory/src/fractol.c						\
+				mandatory/src/mandelbrot.c					\
+				mandatory/src/julia.c						\
+				mandatory/src/burningship.c					\
+				mandatory/src/window.c						\
+				mandatory/src/hook.c						\
 
-OBJS		= 	${SRCS:.c=.o}
-
-# OBJS_BONUS	= 	${SRCS_BONUS:.c=.o}
+OBJS        =    $(addprefix obj/, $(SRCS:.c=.o))
+OBJS_DIRS    =    $(sort $(dir $(OBJS))) 
 
 LIBPATH		= 	libft/
 
@@ -38,22 +42,23 @@ MINILIBXPATH		= 	minilibx-linux/
 all:			${NAME}
 	$(RNBW)
 
-%.o: %.c
+obj/%.o: %.c
 	@printf "$(ORANGE)[$(RESET)$(CMP)$(ORANGE)] $(RESET)Compilating Fract'ol... $(RED)$<$(ORANGE) [$(RESET)$(CMP)$(ORANGE)/$(RESET)$(FILE)$(ORANGE)]$(RESET)           \r"
 	$(CC) $(CFLAGS) -c $< -o  $@
 	@$(eval CMP=$(shell echo $$(($(CMP)+1))))
 
-${NAME}:		${OBJS}
+$(OBJS_DIRS):
+	@mkdir -p $@
+
+$(NAME): $(OBJS_DIRS) $(OBJS)
 			make --quiet -C ${LIBPATH}
 			make --quiet -C ${MINILIBXPATH}
-			${CC} ${CFLAGS} $^ ${INCLUDE} ${LIBFT} -Lminilibx-linux -lmlx_Linux -I./minilibx-linux -lXext -lX11 -lm -lz -o $@
-
-
+			${CC} ${CFLAGS} $(OBJS) ${INCLUDE} ${LIBFT} -Lminilibx-linux -lmlx_Linux -I./minilibx-linux -lXext -lX11 -lm -lz -o $@
 
 clean:
 			make --quiet clean -C ${LIBPATH}
 			make --quiet clean -C ${MINILIBXPATH}
-			rm -f ${OBJS} ${OBJS_BONUS}
+			rm -rf obj/
 
 fclean:			clean
 			make --quiet fclean -C ${LIBPATH}

@@ -6,52 +6,80 @@
 /*   By: ycontre <ycontre@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/30 15:12:57 by ycontre           #+#    #+#             */
-/*   Updated: 2023/11/30 17:28:33 by ycontre          ###   ########.fr       */
+/*   Updated: 2023/12/01 19:04:13 by ycontre          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../fractol.h"
-#include "../../minilibx-linux/mlx.h"
 
-typedef struct s_data {
-	void	*img;
-	char	*addr;
-	int		bits_per_pixel;
-	int		line_length;
-	int		endian;
-}				t_data;
-
-void	my_mlx_pixel_put(t_data *data, int x, int y, int color)
+int	destroy(t_fractol *fractol)
 {
-	char	*dst;
-
-	dst = data->addr + (y * data->line_length + x * (data->bits_per_pixel / 8));
-	*(unsigned int*)dst = color;
+	mlx_clear_window(fractol->mlx, fractol->mlx_win);
+	mlx_destroy_image(fractol->mlx, fractol->img.img);
+	mlx_destroy_window(fractol->mlx, fractol->mlx_win);
+	mlx_destroy_display(fractol->mlx);
+	mlx_loop_end(fractol->mlx);
+	free(fractol->mlx);
+	free(fractol);
+	exit(EXIT_SUCCESS);
+	return (0);
 }
-//https://harm-smits.github.io/42docs/libs/minilibx/events.html
-int	main(void)
+
+void	init_fractol(t_fractol *fractol)
 {
-	void	*mlx;
-	void	*mlx_win;
-	t_data	img;
+	fractol->zoom = 1;
+	fractol->x_set = 0;
+	fractol->y_set = 0;
+	fractol->complex_x = 0;
+	fractol->complex_y = 0;
+	fractol->img = create_window(&fractol->mlx, &fractol->mlx_win);
+}
 
-	mlx = mlx_init();
-	mlx_win = mlx_new_window(mlx, 1280, 720, "Fract'ol");
-	img.img = mlx_new_image(mlx, 1280, 720);
-	img.addr = mlx_get_data_addr(img.img, &img.bits_per_pixel, &img.line_length,
-								&img.endian);
-	int i = 0;
-	while (i < 1280)
+void	print_fractal(t_fractol *fractol)
+{
+	if (fractol->type == 1)
+		mandelbrot(fractol);
+	else if (fractol->type == 2)
+		julia(fractol);
+	else if (fractol->type == 3)
+		burningship(fractol);
+}
+
+void	choose_fractol(t_fractol *fractol, char **argv)
+{
+	fractol->type = 0;
+	if (ft_strcmp(argv[1], "mandelbrot") == 0)
+		fractol->type = 1;
+	else if (ft_strcmp(argv[1], "julia") == 0)
 	{
-		int j = 0;
-		while (j < 720)
-		{
-			my_mlx_pixel_put(&img, i, j, 0x00FFFFFF);
-			j++;
-		}
-		i++;
+		fractol->type = 2;
 	}
+	else if (ft_strcmp(argv[1], "burningship") == 0)
+		fractol->type = 3;
+	else
+		ft_putstr_fd("Usage:\n\t./fractol mandelbrot\n\t./fractol julia <float> <float>\n\t./fractol burningship\n", 1);
+	if (fractol->type != 0)
+		print_fractal(fractol);
+}
 
-	mlx_put_image_to_window(mlx, mlx_win, img.img, 0, 0);
-	mlx_loop(mlx);
+int	main(int argc, char **argv)
+{
+	t_fractol	*fractol;
+
+	fractol = ft_calloc(1, sizeof(t_fractol));
+	if (!fractol)
+		return (-1);
+	if (argc == 2 || argc == 4)
+	{
+		init_fractol(fractol);
+		choose_fractol(fractol, argv);
+		mlx_mouse_hook(fractol->mlx_win, mouse_hook, fractol);
+		mlx_key_hook(fractol->mlx_win, key_hook, fractol);
+		mlx_hook(fractol->mlx_win, 17, 1L << 2, destroy, fractol);
+		mlx_loop(fractol->mlx);
+		destroy(fractol);
+	}
+	else
+		ft_putstr_fd("Usage:\n\t./fractol mandelbrot\n\t./fractol julia <float> <float>\n\t./fractol burningship\n", 1);
+	free(fractol);
 }

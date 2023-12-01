@@ -6,7 +6,7 @@
 #    By: ycontre <ycontre@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/11/30 10:43:38 by ycontre           #+#    #+#              #
-#    Updated: 2023/11/30 17:08:40 by ycontre          ###   ########.fr        #
+#    Updated: 2023/12/01 14:04:04 by ycontre          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -73,6 +73,7 @@ SRC	= ./src/check/ft_isalnum.c\
 	  ./src/string/ft_strlen.c\
 	  ./src/string/ft_strmapi.c\
 	  ./src/string/ft_strncmp.c\
+	  ./src/string/ft_strcmp.c\
 	  ./src/string/ft_strnstr.c\
 	  ./src/string/ft_strrchr.c\
 	  ./src/string/ft_strtrim.c\
