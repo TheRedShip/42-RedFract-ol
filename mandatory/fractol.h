@@ -6,7 +6,7 @@
 /*   By: ycontre <ycontre@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/30 15:11:53 by ycontre           #+#    #+#             */
-/*   Updated: 2023/12/01 19:55:29 by ycontre          ###   ########.fr       */
+/*   Updated: 2023/12/03 13:50:59 by ycontre          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,9 +33,10 @@ typedef struct s_fractol {
 	double 	complex_y;
 	int 	is_julia_fixed;
 	int		pan;
+	int		color_type;
 }				t_fractol;
 
-# define WIDTH 960
+# define WIDTH 1280
 # define HEIGHT 960
 
 # include "../libft/libft.h"

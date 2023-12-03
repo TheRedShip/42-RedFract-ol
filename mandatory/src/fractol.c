@@ -6,7 +6,7 @@
 /*   By: ycontre <ycontre@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/30 15:12:57 by ycontre           #+#    #+#             */
-/*   Updated: 2023/12/01 20:08:09 by ycontre          ###   ########.fr       */
+/*   Updated: 2023/12/03 13:54:08 by ycontre          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,7 @@ void	init_fractol(t_fractol *fractol)
 	fractol->complex_y = 0;
 	fractol->is_julia_fixed = 0;
 	fractol->pan = 0;
+	fractol->color_type = 0;
 	fractol->img = create_window(&fractol->mlx, &fractol->mlx_win);
 }
 
@@ -100,7 +101,6 @@ int	main(int argc, char **argv)
 		init_fractol(fractol);
 		choose_fractol(fractol, argv);
 		mlx_mouse_hook(fractol->mlx_win, mouse_hook, fractol);
-		
 		mlx_key_hook(fractol->mlx_win, key_hook, fractol);
 		mlx_hook(fractol->mlx_win, 17, 1L << 2, destroy, fractol);
 		mlx_loop_hook(fractol->mlx, loop_hook, fractol);

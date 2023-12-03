@@ -6,7 +6,7 @@
 /*   By: ycontre <ycontre@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/01 17:08:19 by ycontre           #+#    #+#             */
-/*   Updated: 2023/12/01 20:08:23 by ycontre          ###   ########.fr       */
+/*   Updated: 2023/12/03 14:02:34 by ycontre          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,6 +38,13 @@ int	key_hook(int key, t_fractol *fractol)
 	ft_putstr_fd("\n", 1);
 	if (key == 65307)
 		destroy(fractol);
+	if (key == 65436)
+	{
+		fractol->color_type += 1;
+		if (fractol->color_type > 5)
+			fractol->color_type = 0;
+		print_fractal(fractol);
+	}
 	else if (key == 32)
 		fractol->is_julia_fixed = !fractol->is_julia_fixed;
 	return (0);

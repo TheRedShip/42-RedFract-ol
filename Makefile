@@ -19,7 +19,7 @@ NAME		=	fractol
 
 CC			=	cc
 
-CFLAGS		=	-g -Wall -Wextra -Werror
+CFLAGS		=	-Wall -Wextra -Werror -Ofast
 
 INCLUDE		=	-I.
 
@@ -50,8 +50,10 @@ obj/%.o: %.c
 $(OBJS_DIRS):
 	@mkdir -p $@
 
-$(NAME): $(OBJS_DIRS) $(OBJS)
-			make --quiet -C ${LIBPATH}
+libft.a:
+	make --quiet -C ${LIBPATH}
+
+$(NAME): libft.a $(OBJS_DIRS) $(OBJS)
 			make --quiet -C ${MINILIBXPATH}
 			${CC} ${CFLAGS} $(OBJS) ${INCLUDE} ${LIBFT} -Lminilibx-linux -lmlx_Linux -I./minilibx-linux -lXext -lX11 -lm -lz -o $@
 
