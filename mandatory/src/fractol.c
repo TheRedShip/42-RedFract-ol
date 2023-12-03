@@ -6,7 +6,7 @@
 /*   By: ycontre <ycontre@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/30 15:12:57 by ycontre           #+#    #+#             */
-/*   Updated: 2023/12/03 13:54:08 by ycontre          ###   ########.fr       */
+/*   Updated: 2023/12/03 17:37:09 by ycontre          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,10 @@ void	choose_fractol(t_fractol *fractol, char **argv)
 {
 	fractol->type = 0;
 	if (ft_strcmp(argv[1], "mandelbrot") == 0)
+	{
+		fractol->x_set -= 300;
 		fractol->type = 1;
+	}
 	else if (ft_strcmp(argv[1], "julia") == 0)
 	{
 		fractol->type = 2;

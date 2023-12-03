@@ -6,7 +6,7 @@
 /*   By: ycontre <ycontre@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/01 17:08:19 by ycontre           #+#    #+#             */
-/*   Updated: 2023/12/03 14:02:34 by ycontre          ###   ########.fr       */
+/*   Updated: 2023/12/03 17:49:31 by ycontre          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,17 +14,20 @@
 
 int	mouse_hook(int button, int x, int y, t_fractol *fractol)
 {
+	double zoom_num;
+
+	zoom_num = 1.2;
 	if (button == 4)
 	{
-		fractol->x_set = (x / fractol->zoom + fractol->x_set) - (x / (fractol->zoom * 1.5));
-		fractol->y_set = (y / fractol->zoom + fractol->y_set) - (y / (fractol->zoom * 1.5));
-		fractol->zoom *= 1.5;
+		fractol->x_set = (x / fractol->zoom + fractol->x_set) - (x / (fractol->zoom * zoom_num));
+		fractol->y_set = (y / fractol->zoom + fractol->y_set) - (y / (fractol->zoom * zoom_num));
+		fractol->zoom *= zoom_num;
 	}
 	else if (button == 5)
 	{
-		fractol->x_set = (x / fractol->zoom + fractol->x_set) - (x / (fractol->zoom / 1.5));
-		fractol->y_set = (y / fractol->zoom + fractol->y_set) - (y / (fractol->zoom / 1.5));
-		fractol->zoom /= 1.5;
+		fractol->x_set = (x / fractol->zoom + fractol->x_set) - (x / (fractol->zoom / zoom_num));
+		fractol->y_set = (y / fractol->zoom + fractol->y_set) - (y / (fractol->zoom / zoom_num));
+		fractol->zoom /= zoom_num;
 	}
 	else if (button == 3)
 		fractol->pan = !fractol->pan;

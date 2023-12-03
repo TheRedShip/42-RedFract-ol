@@ -6,7 +6,7 @@
 /*   By: ycontre <ycontre@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/30 15:11:53 by ycontre           #+#    #+#             */
-/*   Updated: 2023/12/03 13:50:59 by ycontre          ###   ########.fr       */
+/*   Updated: 2023/12/03 17:25:13 by ycontre          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,5 +56,9 @@ void	print_fractal(t_fractol *fractol);
 int		mouse_hook(int button, int x, int y, t_fractol *f);
 int		key_hook(int key, t_fractol *f);
 int		destroy(t_fractol *fractol);
+
+int		rgb_to_hex(int t, int r, int g, int b);
+int		hsv_to_hex(int hue, int saturation, double value);
+int		color_smoothing(int iteration, t_fractol *fractol);
 
 #endif
