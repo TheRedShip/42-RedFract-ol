@@ -6,7 +6,7 @@
 /*   By: ycontre <ycontre@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/30 15:11:53 by ycontre           #+#    #+#             */
-/*   Updated: 2023/12/04 15:01:06 by ycontre          ###   ########.fr       */
+/*   Updated: 2023/12/04 17:37:49 by ycontre          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,19 +26,25 @@ typedef struct s_fractol {
 	void	*mlx_win;
 	t_data	img;
 	int		type;
-	double		zoom;
-	double 	x_set;
-	double 	y_set;
+	double	max_iter;
 	double 	complex_x;
 	double 	complex_y;
-	int 	is_julia_fixed;
+	double	zoom;
+	double 	x_set;
+	double 	y_set;
 	int		pan;
-	int		color_type;
 	int		smoothing;
+	int		color_type;
+	int		color_shift;
+	int		color_shift_v;
+	int 	is_julia_fixed;
 }				t_fractol;
 
-# define WIDTH 1280
+# define WIDTH 960
 # define HEIGHT 960
+# define ASPECT_RATIO 1
+
+# define M_LN2 0.30102999566
 
 # include "../libft/libft.h"
 # include "../minilibx-linux/mlx.h"

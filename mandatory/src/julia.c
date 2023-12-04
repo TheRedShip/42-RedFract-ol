@@ -6,7 +6,7 @@
 /*   By: ycontre <ycontre@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/01 14:12:41 by ycontre           #+#    #+#             */
-/*   Updated: 2023/12/04 15:01:18 by ycontre          ###   ########.fr       */
+/*   Updated: 2023/12/04 17:44:50 by ycontre          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,17 +14,15 @@
 
 double calculate_julia_px(int x, int y, t_fractol *fractol)
 {
-	long double aspect_ratio = (long double)WIDTH / (long double)HEIGHT;
 	
 	long double zx = (x / fractol->zoom + fractol->x_set);
 	long double zy = (y / fractol->zoom + fractol->y_set);
-	zx = (zx - WIDTH / 2) * 2 / (WIDTH / 2) * aspect_ratio;
-	zy = (zy - HEIGHT / 2) * 2 / (HEIGHT / 2);
+	zx = ((zx / WIDTH) - 0.5) * 2 * ASPECT_RATIO;
+	zy = ((zy / WIDTH) - 0.5) * 2;
 
 	int iteration = 0;
-	int max_iteration = 200;
 	double smoothcolor = exp(-(zx * zx + zy * zy));
-	while (zx * zx + zy * zy < 4 && iteration < max_iteration) 
+	while (zx * zx + zy * zy < 4 && iteration < (int)fractol->max_iter) 
 	{
 		double xtemp = zx * zx - zy * zy;
 		zy = 2 * zx * zy + fractol->complex_y;
@@ -33,7 +31,7 @@ double calculate_julia_px(int x, int y, t_fractol *fractol)
 			smoothcolor += exp(-(zx * zx + zy * zy));
 		iteration++;
 	}
-	if (iteration == max_iteration || iteration == 0)
+	if (iteration == (int)fractol->max_iter || iteration == 0)
 		return (0);
 	else
 	{
@@ -42,7 +40,6 @@ double calculate_julia_px(int x, int y, t_fractol *fractol)
 		return (iteration);
 	}
 }
-
 
 void julia(t_fractol *fractol)
 {

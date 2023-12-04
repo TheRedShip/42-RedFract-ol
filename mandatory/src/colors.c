@@ -6,7 +6,7 @@
 /*   By: ycontre <ycontre@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/03 14:54:25 by ycontre           #+#    #+#             */
-/*   Updated: 2023/12/04 15:00:54 by ycontre          ###   ########.fr       */
+/*   Updated: 2023/12/04 17:34:09 by ycontre          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,7 +67,11 @@ int color_smoothing(double iteration, t_fractol *fractol)
 	long double test = iteration/(long double)max;
 	
 	if (fractol->color_type == 0)
+	{
+		if (fractol->color_shift)
+			return (hsv_to_hex((int)(iteration * 15 + fractol->color_shift_v) % 360, 0.5, 1));
 		return (hsv_to_hex((int)(iteration * 15 + 150) % 360, 0.5, 1));
+	}
 	else if (fractol->color_type == 1)
 		return (hsv_to_hex((int)(iteration * 3.6 + 180) % 360, 1, 1));
 	else if (fractol->color_type == 2)

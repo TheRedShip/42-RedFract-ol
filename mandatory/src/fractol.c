@@ -6,7 +6,7 @@
 /*   By: ycontre <ycontre@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/30 15:12:57 by ycontre           #+#    #+#             */
-/*   Updated: 2023/12/04 14:55:09 by ycontre          ###   ########.fr       */
+/*   Updated: 2023/12/04 17:35:10 by ycontre          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,6 +36,9 @@ void	init_fractol(t_fractol *fractol)
 	fractol->pan = 0;
 	fractol->color_type = 0;
 	fractol->smoothing = 0;
+	fractol->max_iter = 50;
+	fractol->color_shift = 0;
+	fractol->color_shift_v = 150;
 	fractol->img = create_window(&fractol->mlx, &fractol->mlx_win);
 }
 
@@ -91,6 +94,13 @@ int	loop_hook(t_fractol *fractol)
 		mlx_mouse_get_pos(fractol->mlx, fractol->mlx_win, &x, &y);
 		fractol->x_set += (((x - WIDTH/4) / fractol->zoom) - (x / (fractol->zoom * 1.5)));
 		fractol->y_set += (((y - HEIGHT/4) / fractol->zoom) - (y / (fractol->zoom * 1.5)));
+		print_fractal(fractol);
+	}
+	else if (fractol->color_shift)
+	{
+		fractol->color_shift_v += 3;
+		if (fractol->color_shift_v > 360)
+			fractol->color_shift_v = 0;
 		print_fractal(fractol);
 	}
 	return (0);
