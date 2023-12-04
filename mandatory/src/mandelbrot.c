@@ -6,16 +6,11 @@
 /*   By: ycontre <ycontre@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/01 14:09:13 by ycontre           #+#    #+#             */
-/*   Updated: 2023/12/03 17:42:41 by ycontre          ###   ########.fr       */
+/*   Updated: 2023/12/04 13:23:28 by ycontre          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../fractol.h"
-
-double map(double value, double start1, double stop1, double start2, double stop2)
-{
-	return start2 + (stop2 - start2) * ((value - start1) / (stop1 - start1));
-}
 
 double calculate_mandel_px(int x, int y, t_fractol *fractol)
 {
@@ -26,10 +21,10 @@ double calculate_mandel_px(int x, int y, t_fractol *fractol)
 	long double cy0 = (y / fractol->zoom + fractol->y_set);
 	cx0 = (cx0 - WIDTH / 2) * 1 / (WIDTH / 2) * aspect_ratio;
 	cy0 = (cy0 - HEIGHT / 2) * 1 / (HEIGHT / 2);
-	
+
 	int iteration = 0;
 	int max_iteration = 200;
-	while (zx * zx + zy * zy < 4 && iteration < max_iteration)
+	while (zx * zx + zy * zy < 9 && iteration < max_iteration)
 	{
 		double xtemp = zx * zx - zy * zy + cx0;
 		zy = 2 * zx * zy + cy0;
@@ -39,14 +34,22 @@ double calculate_mandel_px(int x, int y, t_fractol *fractol)
 	if (iteration == max_iteration || iteration == 0)
 		return (0);
 	else
+	{
+		if (fractol->smoothing)
+		{
+			double abs_z = zx * zx + zy * zy;
+			double smooth = iteration + 1 - log(log(sqrt(abs_z))) / log(2);
+			return (smooth);
+		}
 		return (iteration);
+	}
 }
 
 void mandelbrot(t_fractol *fractol)
 {
 	int y;
 	int x;
-	int	iteration;
+	double	iteration;
 
 	y = 0;
 	while (y < HEIGHT)

@@ -19,7 +19,7 @@ NAME		=	fractol
 
 CC			=	cc
 
-CFLAGS		=	-Wall -Wextra -Werror -Ofast
+CFLAGS		=	-Wall -Wextra -Werror
 
 INCLUDE		=	-I.
 

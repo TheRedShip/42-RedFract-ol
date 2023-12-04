@@ -6,7 +6,7 @@
 /*   By: ycontre <ycontre@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/03 14:54:25 by ycontre           #+#    #+#             */
-/*   Updated: 2023/12/03 17:59:29 by ycontre          ###   ########.fr       */
+/*   Updated: 2023/12/04 14:02:04 by ycontre          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ int	rgb_to_hex(int t, int r, int g, int b)
 	return (final);
 }
 
-int hsv_to_hex(int hue, int saturation, double value)
+int hsv_to_hex(double hue, double saturation, double value)
 {
 	int M;
 	int m;
@@ -61,23 +61,20 @@ int hsv_to_hex(int hue, int saturation, double value)
 	return rgb_to_hex(0, r, g, b);
 }
 
-int color_smoothing(int iteration, t_fractol *fractol)
+int color_smoothing(double iteration, t_fractol *fractol)
 {
 	int max = 50;
 	long double test = (long double)iteration/(long double)max;
-	int color = iteration * 360 / 100;
-	color += 180;// + (log(fractol->zoom) * 40);
-	color %= 360;
 	if (fractol->color_type == 0)
-		return rgb_to_hex(0, 0, 0, 255 * test);
+		return (hsv_to_hex((int)(iteration * 15 + 150) % 360, 0.5, 1));
 	else if (fractol->color_type == 1)
-		return (hsv_to_hex(iteration, 255, 1));
+		return (hsv_to_hex((int)(iteration * 3.6 + 180) % 360, 1, 1));
 	else if (fractol->color_type == 2)
 		return rgb_to_hex(0, 230 * test, 0, 30 * test);
 	else if (fractol->color_type == 3)
 		return rgb_to_hex(0, 230 * test, 0, 175 * test);
 	else if (fractol->color_type == 4)
-		return (hsv_to_hex(255 * (double)iteration / (double)(200), 1, 1));
+		return (hsv_to_hex(test, 255, 1));
 	else
-		return (hsv_to_hex(color, 1, 1));
+		return rgb_to_hex(0, 0, 0, 255 * test);
 }

@@ -6,7 +6,7 @@
 /*   By: ycontre <ycontre@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/30 15:11:53 by ycontre           #+#    #+#             */
-/*   Updated: 2023/12/03 17:25:13 by ycontre          ###   ########.fr       */
+/*   Updated: 2023/12/04 13:59:19 by ycontre          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,7 @@ typedef struct s_fractol {
 	int 	is_julia_fixed;
 	int		pan;
 	int		color_type;
+	int		smoothing;
 }				t_fractol;
 
 # define WIDTH 1280
@@ -58,7 +59,7 @@ int		key_hook(int key, t_fractol *f);
 int		destroy(t_fractol *fractol);
 
 int		rgb_to_hex(int t, int r, int g, int b);
-int		hsv_to_hex(int hue, int saturation, double value);
-int		color_smoothing(int iteration, t_fractol *fractol);
+int		hsv_to_hex(double hue, double saturation, double value);
+int		color_smoothing(double iteration, t_fractol *fractol);
 
 #endif

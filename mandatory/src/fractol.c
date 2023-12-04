@@ -6,7 +6,7 @@
 /*   By: ycontre <ycontre@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/30 15:12:57 by ycontre           #+#    #+#             */
-/*   Updated: 2023/12/03 17:37:09 by ycontre          ###   ########.fr       */
+/*   Updated: 2023/12/04 12:18:26 by ycontre          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,7 @@ void	init_fractol(t_fractol *fractol)
 	fractol->is_julia_fixed = 0;
 	fractol->pan = 0;
 	fractol->color_type = 0;
+	fractol->smoothing = 0;
 	fractol->img = create_window(&fractol->mlx, &fractol->mlx_win);
 }
 
