@@ -52,7 +52,7 @@ void	print_fractal(t_fractol *fractol)
 		burningship(fractol);
 }
 
-void	choose_fractol(t_fractol *fractol, char **argv)
+int	choose_fractol(t_fractol *fractol, char **argv, int argc)
 {
 	fractol->type = 0;
 	if (ft_strcmp(argv[1], "mandelbrot") == 0)
@@ -60,9 +60,11 @@ void	choose_fractol(t_fractol *fractol, char **argv)
 		fractol->x_set -= 300;
 		fractol->type = 1;
 	}
-	else if (ft_strcmp(argv[1], "julia") == 0)
+	else if (ft_strcmp(argv[1], "julia") == 0 && argc == 4)
 	{
 		fractol->type = 2;
+		fractol->complex_x = ft_atof(argv[2]);
+		fractol->complex_y = ft_atof(argv[3]);
 	}
 	else if (ft_strcmp(argv[1], "burningship") == 0)
 	{
@@ -70,9 +72,9 @@ void	choose_fractol(t_fractol *fractol, char **argv)
 		fractol->color_type = 2;
 	}
 	else
-		ft_putstr_fd("Usage:\n\t./fractol mandelbrot\n\t./fractol julia <float> <float>\n\t./fractol burningship\n", 1);
-	if (fractol->type != 0)
-		print_fractal(fractol);
+		return (-1);
+	print_fractal(fractol);
+	return (1);
 }
 
 int	loop_hook(t_fractol *fractol)
@@ -110,13 +112,17 @@ int	main(int argc, char **argv)
 {
 	t_fractol	*fractol;
 	
-	fractol = ft_calloc(1, sizeof(t_fractol));
-	if (!fractol)
-		return (-1);
 	if (argc == 2 || argc == 4)
 	{
+		fractol = ft_calloc(1, sizeof(t_fractol));
+		if (!fractol)
+			return (-1);
 		init_fractol(fractol);
-		choose_fractol(fractol, argv);
+		if (choose_fractol(fractol, argv, argc) == -1)
+		{
+			ft_putstr_fd("Usage:\n\t./fractol mandelbrot\n\t./fractol julia <float> <float>\n\t./fractol burningship\n", 1);
+			destroy(fractol);
+		}
 		mlx_mouse_hook(fractol->mlx_win, mouse_hook, fractol);
 		mlx_key_hook(fractol->mlx_win, key_hook, fractol);
 		mlx_hook(fractol->mlx_win, 17, 1L << 2, destroy, fractol);
@@ -126,5 +132,5 @@ int	main(int argc, char **argv)
 	}
 	else
 		ft_putstr_fd("Usage:\n\t./fractol mandelbrot\n\t./fractol julia <float> <float>\n\t./fractol burningship\n", 1);
-	free(fractol);
+	return (0);
 }

@@ -45,6 +45,7 @@ void	*ft_memchr(void *s, int c, size_t n);
 int		ft_memcmp(void *s1, void *s2, size_t n);
 char	*ft_strnstr(char *b, char *l, size_t len);
 int		ft_atoi(char *str);
+double	ft_atof(char *str);
 void	*ft_calloc(size_t nmemb, size_t size);
 char	*ft_strdup(char *s);
 char	*ft_substr(char *s, unsigned int start, size_t len);

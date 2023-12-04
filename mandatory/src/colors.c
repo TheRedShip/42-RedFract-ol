@@ -12,7 +12,6 @@
 
 #include "../fractol.h"
 
-
 int	rgb_to_hex(int t, int r, int g, int b)
 {
 	int final;
@@ -28,7 +27,7 @@ int hsv_to_hex(double hue, double saturation, double value)
 {
 	int M;
 	int m;
-	
+
 	M = 255 * value;
 	m = M * (1 - saturation);
 	double z = (M - m) * (1 - fabs(fmod(hue / 60.0, 2) - 1));

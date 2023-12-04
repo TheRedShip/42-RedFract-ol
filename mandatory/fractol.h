@@ -40,8 +40,8 @@ typedef struct s_fractol {
 	int 	is_julia_fixed;
 }				t_fractol;
 
-# define WIDTH 960
-# define HEIGHT 960
+# define WIDTH 1000
+# define HEIGHT 1000
 # define ASPECT_RATIO 1
 
 # define M_LN2 0.30102999566

@@ -39,12 +39,27 @@ int	mouse_hook(int button, int x, int y, t_fractol *fractol)
 	return (0);
 }
 
+void	movement_key(int key, t_fractol *fractol)
+{
+	if (key == 65361)
+		fractol->x_set -= 10 / fractol->zoom;
+	else if (key == 65362)
+		fractol->y_set -= 10 / fractol->zoom;
+	else if (key == 65363)
+		fractol->x_set += 10 / fractol->zoom;
+	else if (key == 65364)
+		fractol->y_set += 10 / fractol->zoom;
+}
+
 int	key_hook(int key, t_fractol *fractol)
 {
-	ft_putnbr_fd(key, 1);
-	ft_putstr_fd("\n", 1);
+	printf("%f\n", fractol->max_iter);
 	if (key == 65307)
 		destroy(fractol);
+	if (key == 65451)
+		fractol->max_iter += 5;
+	else if (key == 65453)
+		fractol->max_iter -= 5;
 	else if (key == 65436)
 	{
 		fractol->color_type += 1;
@@ -57,14 +72,7 @@ int	key_hook(int key, t_fractol *fractol)
 		fractol->color_shift = !fractol->color_shift;
 	else if (key == 32)
 		fractol->is_julia_fixed = !fractol->is_julia_fixed;
-	else if (key == 65361)
-		fractol->x_set -= 10 / fractol->zoom;
-	else if (key == 65362)
-		fractol->y_set -= 10 / fractol->zoom;
-	else if (key == 65363)
-		fractol->x_set += 10 / fractol->zoom;
-	else if (key == 65364)
-		fractol->y_set += 10 / fractol->zoom;
+	movement_key(key, fractol);
 	print_fractal(fractol);
 	return (0);
 }

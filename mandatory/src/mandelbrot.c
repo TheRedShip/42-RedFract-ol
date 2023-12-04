@@ -30,7 +30,7 @@ double calculate_mandel_px(int x, int y, t_fractol *fractol)
 		iteration++;
 	}
 	if (iteration == (int)fractol->max_iter || iteration == 0)
-		return (0);
+		return (-1);
 	else
 	{
 		if (fractol->smoothing)
@@ -56,10 +56,10 @@ void mandelbrot(t_fractol *fractol)
 		while (x < WIDTH)
 		{
 			iteration = calculate_mandel_px(x, y, fractol);
-			if (iteration == 0)
-				put_pixel(&(fractol->img), x, y, rgb_to_hex(0, 0, 0, 0));
+			if (iteration == -1)
+				put_pixel(&(fractol->img), x, y, 0);
 			else
-				put_pixel(&(fractol->img), x, y, color_smoothing(iteration, fractol)); // 0x000000FF + iteration * 20
+				put_pixel(&(fractol->img), x, y, color_smoothing(iteration, fractol));
 			x++;
 		}
 		y++;

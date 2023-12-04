@@ -12,7 +12,7 @@
 
 # PROJECT #
 NAME	= libft.a
-CC		= @clang
+CC		= @gcc
 CFLAGS	= -Wall -Wextra -Werror
 RM		= @rm -f
 FILE	= $(shell ls -lR src/ | grep -F .c | wc -l)
@@ -61,6 +61,7 @@ SRC	= ./src/check/ft_isalnum.c\
 	  ./src/print/ft_putnbr_fd.c\
 	  ./src/print/ft_putstr_fd.c\
 	  ./src/string/ft_atoi.c\
+	  ./src/string/ft_atof.c\
 	  ./src/string/ft_itoa.c\
 	  ./src/string/ft_split.c\
 	  ./src/string/ft_strchr.c\

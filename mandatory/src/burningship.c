@@ -30,15 +30,15 @@ double calculate_ship_px(int x, int y, t_fractol *fractol) //not working
 
 	int iteration = 0;
 	int max_iteration = 200;
-	while (zx * zx + zy * zy < 4 && iteration < (int)max_iteration)
+	while (zx * zx + zy * zy < 8 && iteration < (int)max_iteration)
 	{
 		long double zxn1 = zx * zx - zy * zy + cx0;
 		zy = ab(2 * zx * zy) - cy0;
 		zx = zxn1;
 		iteration++;
 	}
-	if (iteration == (int)max_iteration || iteration == 0)
-		return (0);
+	if (iteration == (int)max_iteration)
+		return (-1);
 	else
 	{
 		if (fractol->smoothing)
@@ -64,10 +64,10 @@ void burningship(t_fractol *fractol)
 		while (x < WIDTH)
 		{
 			iteration = calculate_ship_px(x, y, fractol);
-			if (iteration == 0)
-				put_pixel(&(fractol->img), x, y, rgb_to_hex(0, 0, 0, 0));
+			if (iteration == -1)
+				put_pixel(&(fractol->img), x, y, 0);
 			else
-				put_pixel(&(fractol->img), x, y, color_smoothing(iteration, fractol)); // 0x000000FF + iteration * 20
+				put_pixel(&(fractol->img), x, y, color_smoothing(iteration, fractol));
 			x++;
 		}
 		y++;
