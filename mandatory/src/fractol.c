@@ -6,7 +6,7 @@
 /*   By: ycontre <ycontre@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/30 15:12:57 by ycontre           #+#    #+#             */
-/*   Updated: 2023/12/04 12:18:26 by ycontre          ###   ########.fr       */
+/*   Updated: 2023/12/04 14:55:09 by ycontre          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,7 +62,10 @@ void	choose_fractol(t_fractol *fractol, char **argv)
 		fractol->type = 2;
 	}
 	else if (ft_strcmp(argv[1], "burningship") == 0)
+	{
 		fractol->type = 3;
+		fractol->color_type = 2;
+	}
 	else
 		ft_putstr_fd("Usage:\n\t./fractol mandelbrot\n\t./fractol julia <float> <float>\n\t./fractol burningship\n", 1);
 	if (fractol->type != 0)

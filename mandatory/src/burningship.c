@@ -6,25 +6,35 @@
 /*   By: ycontre <ycontre@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/01 14:25:49 by ycontre           #+#    #+#             */
-/*   Updated: 2023/12/04 14:28:38 by ycontre          ###   ########.fr       */
+/*   Updated: 2023/12/04 15:00:51 by ycontre          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../fractol.h"
 
+double ab(double a)
+{
+	if (a < 0)
+		return (a);
+	return (-a);
+}
+
 double calculate_ship_px(int x, int y, t_fractol *fractol) //not working
 {
-	double cx0 = (((double)x / WIDTH) * 3.5) - 2.5;
-	double cy0 = (((double)y / HEIGHT) - 0.5) * 2;
-	double zx = cx0;
-	double zy = cy0;
+	long double aspect_ratio = (long double)WIDTH / (long double)HEIGHT;
+	long double cx0 = (x / fractol->zoom + fractol->x_set);
+	long double cy0 = (y / fractol->zoom + fractol->y_set);
+	cx0 = ((cx0 / WIDTH) * 3.5) - 2.5 * aspect_ratio;
+	cy0 = ((cy0 / HEIGHT) - 0.5) * 2;
+	long double zx = cx0;
+	long double zy = cy0;
 
 	int iteration = 0;
-	int max_iteration = 100;
+	int max_iteration = 200;
 	while (zx * zx + zy * zy < 4 && iteration < max_iteration)
 	{
-		double zxn1 = zx * zx - zy * zy + cx0;
-		zy = ft_abs(2 * zx * zy) - cy0;
+		long double zxn1 = zx * zx - zy * zy + cx0;
+		zy = ab(2 * zx * zy) - cy0;
 		zx = zxn1;
 		iteration++;
 	}
@@ -46,7 +56,7 @@ void burningship(t_fractol *fractol)
 {
 	int y;
 	int x;
-	double	iteration;
+	long double	iteration;
 
 	y = 0;
 	while (y < HEIGHT)

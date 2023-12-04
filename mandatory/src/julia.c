@@ -6,7 +6,7 @@
 /*   By: ycontre <ycontre@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/01 14:12:41 by ycontre           #+#    #+#             */
-/*   Updated: 2023/12/04 14:01:09 by ycontre          ###   ########.fr       */
+/*   Updated: 2023/12/04 15:01:18 by ycontre          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ double calculate_julia_px(int x, int y, t_fractol *fractol)
 	double smoothcolor = exp(-(zx * zx + zy * zy));
 	while (zx * zx + zy * zy < 4 && iteration < max_iteration) 
 	{
-		long double xtemp = zx * zx - zy * zy;
+		double xtemp = zx * zx - zy * zy;
 		zy = 2 * zx * zy + fractol->complex_y;
 		zx = xtemp + fractol->complex_x;
 		if (fractol->smoothing)
@@ -48,7 +48,7 @@ void julia(t_fractol *fractol)
 {
 	int y;
 	int x;
-	double	iteration;
+	long double	iteration;
 
 	y = 0;
 	while (y < HEIGHT)
