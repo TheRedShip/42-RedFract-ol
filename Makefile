@@ -31,7 +31,8 @@ SRCS		=	mandatory/src/fractol.c						\
 				mandatory/src/burningship.c					\
 				mandatory/src/window.c						\
 				mandatory/src/hook.c						\
-				mandatory/src/colors.c						
+				mandatory/src/colors.c						\
+				mandatory/src/color_theme.c				\
 
 OBJS        =    $(addprefix obj/, $(SRCS:.c=.o))
 OBJS_DIRS    =    $(sort $(dir $(OBJS))) 

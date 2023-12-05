@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   hook.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ycontre <ycontre@student.42.fr>            +#+  +:+       +#+        */
+/*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/01 17:08:19 by ycontre           #+#    #+#             */
-/*   Updated: 2023/12/04 17:32:35 by ycontre          ###   ########.fr       */
+/*   Updated: 2023/12/05 15:49:08 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,11 +51,8 @@ void	movement_key(int key, t_fractol *fractol)
 		fractol->y_set += 10 / fractol->zoom;
 }
 
-int	key_hook(int key, t_fractol *fractol)
+void	graphic_key(int key, t_fractol *fractol)
 {
-	printf("%f\n", fractol->max_iter);
-	if (key == 65307)
-		destroy(fractol);
 	if (key == 65451)
 		fractol->max_iter += 5;
 	else if (key == 65453)
@@ -63,7 +60,7 @@ int	key_hook(int key, t_fractol *fractol)
 	else if (key == 65436)
 	{
 		fractol->color_type += 1;
-		if (fractol->color_type > 5)
+		if (fractol->color_type > 4)
 			fractol->color_type = 0;
 	}
 	else if (key == 65433)
@@ -72,6 +69,13 @@ int	key_hook(int key, t_fractol *fractol)
 		fractol->color_shift = !fractol->color_shift;
 	else if (key == 32)
 		fractol->is_julia_fixed = !fractol->is_julia_fixed;
+}
+
+int	key_hook(int key, t_fractol *fractol)
+{
+	if (key == 65307)
+		destroy(fractol);
+	graphic_key(key, fractol);
 	movement_key(key, fractol);
 	print_fractal(fractol);
 	return (0);

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   fractol.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ycontre <ycontre@student.42.fr>            +#+  +:+       +#+        */
+/*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/30 15:11:53 by ycontre           #+#    #+#             */
-/*   Updated: 2023/12/04 17:37:49 by ycontre          ###   ########.fr       */
+/*   Updated: 2023/12/05 16:47:35 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,6 +40,12 @@ typedef struct s_fractol {
 	int 	is_julia_fixed;
 }				t_fractol;
 
+typedef struct {
+    int r;
+	int	g;
+	int	b;
+}	Color;
+
 # define WIDTH 1000
 # define HEIGHT 1000
 # define ASPECT_RATIO 1
@@ -55,6 +61,7 @@ void	mandelbrot(t_fractol *fractol);
 void	julia(t_fractol *fractol);
 void	burningship(t_fractol *fractol);
 
+void	print_fractal(t_fractol *fractol);
 t_data	create_window(void **mlx, void **mlx_win);
 void	put_pixel(t_data *data, int x, int y, int color);
 
@@ -67,5 +74,10 @@ int		destroy(t_fractol *fractol);
 int		rgb_to_hex(int t, int r, int g, int b);
 int		hsv_to_hex(double hue, double saturation, double value);
 int		color_smoothing(double iteration, t_fractol *fractol);
+Color 	lerp(Color start, Color end, double t);
+Color	lerp_color_list(Color colors[], int num_colors, double step, int max_steps);
+
+int		c_frost_sand(double iteration);
+int		c_fire(double iteration);
 
 #endif

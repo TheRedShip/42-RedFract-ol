@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   fractol.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ycontre <ycontre@student.42.fr>            +#+  +:+       +#+        */
+/*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/30 15:12:57 by ycontre           #+#    #+#             */
-/*   Updated: 2023/12/04 17:35:10 by ycontre          ###   ########.fr       */
+/*   Updated: 2023/12/05 16:50:38 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,16 +42,6 @@ void	init_fractol(t_fractol *fractol)
 	fractol->img = create_window(&fractol->mlx, &fractol->mlx_win);
 }
 
-void	print_fractal(t_fractol *fractol)
-{
-	if (fractol->type == 1)
-		mandelbrot(fractol);
-	else if (fractol->type == 2)
-		julia(fractol);
-	else if (fractol->type == 3)
-		burningship(fractol);
-}
-
 int	choose_fractol(t_fractol *fractol, char **argv, int argc)
 {
 	fractol->type = 0;
@@ -69,7 +59,7 @@ int	choose_fractol(t_fractol *fractol, char **argv, int argc)
 	else if (ft_strcmp(argv[1], "burningship") == 0)
 	{
 		fractol->type = 3;
-		fractol->color_type = 2;
+		fractol->color_type = 3;
 	}
 	else
 		return (-1);
@@ -86,7 +76,6 @@ int	loop_hook(t_fractol *fractol)
 	{
 		mlx_mouse_get_pos(fractol->mlx, fractol->mlx_win, &x, &y);
 		double aspect_ratio = (double)WIDTH / (double)HEIGHT;
-
 		fractol->complex_x = ((double)x - WIDTH / 2) * 2 / (WIDTH / 2) * aspect_ratio;
 		fractol->complex_y = ((double)y - HEIGHT / 2) * 2 / (HEIGHT / 2);
 		print_fractal(fractol);

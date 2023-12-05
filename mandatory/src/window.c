@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   window.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ycontre <ycontre@student.42.fr>            +#+  +:+       +#+        */
+/*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/01 14:40:24 by ycontre           #+#    #+#             */
-/*   Updated: 2023/12/01 17:57:06 by ycontre          ###   ########.fr       */
+/*   Updated: 2023/12/05 15:49:51 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,16 @@ t_data create_window(void **mlx, void **mlx_win)
 	img.addr = mlx_get_data_addr(img.img, &img.bits_per_pixel, &img.line_length,
 								&img.endian);
 	return (img);
+}
+
+void	print_fractal(t_fractol *fractol)
+{
+	if (fractol->type == 1)
+		mandelbrot(fractol);
+	else if (fractol->type == 2)
+		julia(fractol);
+	else if (fractol->type == 3)
+		burningship(fractol);
 }
 
 void	put_pixel(t_data *data, int x, int y, int color)

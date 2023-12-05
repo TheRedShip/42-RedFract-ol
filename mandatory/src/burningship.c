@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   burningship.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ycontre <ycontre@student.42.fr>            +#+  +:+       +#+        */
+/*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/01 14:25:49 by ycontre           #+#    #+#             */
-/*   Updated: 2023/12/04 17:40:50 by ycontre          ###   ########.fr       */
+/*   Updated: 2023/12/05 15:54:42 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ double ab(double a)
 	return (-a);
 }
 
-double calculate_ship_px(int x, int y, t_fractol *fractol) //not working
+double calculate_ship_px(int x, int y, t_fractol *fractol)
 {
 	long double cx0 = (x / fractol->zoom + fractol->x_set);
 	long double cy0 = (y / fractol->zoom + fractol->y_set);
@@ -29,15 +29,14 @@ double calculate_ship_px(int x, int y, t_fractol *fractol) //not working
 	long double zy = cy0;
 
 	int iteration = 0;
-	int max_iteration = 200;
-	while (zx * zx + zy * zy < 8 && iteration < (int)max_iteration)
+	while (zx * zx + zy * zy < 8 && iteration < (int)fractol->max_iter)
 	{
 		long double zxn1 = zx * zx - zy * zy + cx0;
 		zy = ab(2 * zx * zy) - cy0;
 		zx = zxn1;
 		iteration++;
 	}
-	if (iteration == (int)max_iteration)
+	if (iteration == (int)fractol->max_iter)
 		return (-1);
 	else
 	{
