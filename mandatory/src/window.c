@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   window.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
+/*   By: ycontre <ycontre@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/01 14:40:24 by ycontre           #+#    #+#             */
-/*   Updated: 2023/12/05 15:49:51 by marvin           ###   ########.fr       */
+/*   Updated: 2023/12/06 18:18:28 by ycontre          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,8 @@ t_data create_window(void **mlx, void **mlx_win)
 	t_data	img;
 	
 	*mlx = mlx_init();
+	// if (!*mlx) a regler
+		
 	*mlx_win = mlx_new_window(*mlx, WIDTH, HEIGHT, "Fract'ol");
 	img.img = mlx_new_image(*mlx, WIDTH, HEIGHT);
 	img.addr = mlx_get_data_addr(img.img, &img.bits_per_pixel, &img.line_length,
@@ -32,6 +34,8 @@ void	print_fractal(t_fractol *fractol)
 		julia(fractol);
 	else if (fractol->type == 3)
 		burningship(fractol);
+	else if (fractol->type == 4)
+		newton(fractol);
 }
 
 void	put_pixel(t_data *data, int x, int y, int color)

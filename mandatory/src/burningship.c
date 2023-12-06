@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   burningship.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
+/*   By: ycontre <ycontre@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/01 14:25:49 by ycontre           #+#    #+#             */
-/*   Updated: 2023/12/05 15:54:42 by marvin           ###   ########.fr       */
+/*   Updated: 2023/12/06 15:51:54 by ycontre          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,7 @@ double calculate_ship_px(int x, int y, t_fractol *fractol)
 		if (fractol->smoothing)
 		{
 			double abs_z = zx * zx + zy * zy;
-			double smooth = iteration + 1 - log(log(sqrt(abs_z))) / log(2);
+			double smooth = iteration + 1 - log(log(sqrt(abs_z))) / M_LN2;
 			return (smooth);
 		}
 		return (iteration);

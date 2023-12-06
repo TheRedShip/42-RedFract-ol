@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   julia.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
+/*   By: ycontre <ycontre@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/01 14:12:41 by ycontre           #+#    #+#             */
-/*   Updated: 2023/12/05 15:55:43 by marvin           ###   ########.fr       */
+/*   Updated: 2023/12/06 19:01:29 by ycontre          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ double calculate_julia_px(int x, int y, t_fractol *fractol)
 	long double zx = (x / fractol->zoom + fractol->x_set);
 	long double zy = (y / fractol->zoom + fractol->y_set);
 	zx = ((zx / WIDTH) - 0.5) * 3.5 * ASPECT_RATIO;
-	zy = ((zy / WIDTH) - 0.5) * 3.5;
+	zy = ((zy / HEIGHT) - 0.5) * 3.5;
 
 	int iteration = 0;
 	double smoothcolor = exp(-(zx * zx + zy * zy));

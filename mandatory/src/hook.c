@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   hook.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
+/*   By: ycontre <ycontre@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/01 17:08:19 by ycontre           #+#    #+#             */
-/*   Updated: 2023/12/05 15:49:08 by marvin           ###   ########.fr       */
+/*   Updated: 2023/12/06 19:12:58 by ycontre          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ int	mouse_hook(int button, int x, int y, t_fractol *fractol)
 		fractol->x_set = (x / fractol->zoom + fractol->x_set) - (x / (fractol->zoom / zoom_num));
 		fractol->y_set = (y / fractol->zoom + fractol->y_set) - (y / (fractol->zoom / zoom_num));
 		fractol->zoom /= zoom_num;
-		if (fractol->max_iter > 50) 
+		if (fractol->max_iter > 50)
 			fractol->max_iter -= 0.5;
 	}
 	else if (button == 3)

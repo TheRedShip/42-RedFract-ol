@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   fractol.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
+/*   By: ycontre <ycontre@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/30 15:12:57 by ycontre           #+#    #+#             */
-/*   Updated: 2023/12/05 16:50:38 by marvin           ###   ########.fr       */
+/*   Updated: 2023/12/06 20:10:35 by ycontre          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,6 +61,8 @@ int	choose_fractol(t_fractol *fractol, char **argv, int argc)
 		fractol->type = 3;
 		fractol->color_type = 3;
 	}
+	else if (ft_strcmp(argv[1], "newton") == 0)
+		fractol->type = 4;
 	else
 		return (-1);
 	print_fractal(fractol);
@@ -109,7 +111,7 @@ int	main(int argc, char **argv)
 		init_fractol(fractol);
 		if (choose_fractol(fractol, argv, argc) == -1)
 		{
-			ft_putstr_fd("Usage:\n\t./fractol mandelbrot\n\t./fractol julia <float> <float>\n\t./fractol burningship\n", 1);
+			ft_putstr_fd("Usage:\n\t./fractol mandelbrot\n\t./fractol julia <float> <float>\n\t./fractol burningship\n\t./fractol newton\n", 1);
 			destroy(fractol);
 		}
 		mlx_mouse_hook(fractol->mlx_win, mouse_hook, fractol);
@@ -120,6 +122,6 @@ int	main(int argc, char **argv)
 		destroy(fractol);
 	}
 	else
-		ft_putstr_fd("Usage:\n\t./fractol mandelbrot\n\t./fractol julia <float> <float>\n\t./fractol burningship\n", 1);
+		ft_putstr_fd("Usage:\n\t./fractol mandelbrot\n\t./fractol julia <float> <float>\n\t./fractol burningship\n\t./fractol newton\n", 1);
 	return (0);
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   fractol.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
+/*   By: ycontre <ycontre@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/30 15:11:53 by ycontre           #+#    #+#             */
-/*   Updated: 2023/12/05 16:47:35 by marvin           ###   ########.fr       */
+/*   Updated: 2023/12/06 16:57:38 by ycontre          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,6 +60,7 @@ typedef struct {
 void	mandelbrot(t_fractol *fractol);
 void	julia(t_fractol *fractol);
 void	burningship(t_fractol *fractol);
+void	newton(t_fractol *fractol);
 
 void	print_fractal(t_fractol *fractol);
 t_data	create_window(void **mlx, void **mlx_win);

@@ -19,7 +19,7 @@ NAME		=	fractol
 
 CC			=	cc
 
-CFLAGS		=	-Wall -Wextra -Werror -Ofast
+CFLAGS		=	-g -Wall -Wextra -Werror -Ofast
 
 INCLUDE		=	-I.
 
@@ -29,10 +29,11 @@ SRCS		=	mandatory/src/fractol.c						\
 				mandatory/src/mandelbrot.c					\
 				mandatory/src/julia.c						\
 				mandatory/src/burningship.c					\
+				mandatory/src/newton.c						\
 				mandatory/src/window.c						\
 				mandatory/src/hook.c						\
 				mandatory/src/colors.c						\
-				mandatory/src/color_theme.c				\
+				mandatory/src/color_theme.c					\
 
 OBJS        =    $(addprefix obj/, $(SRCS:.c=.o))
 OBJS_DIRS    =    $(sort $(dir $(OBJS))) 
