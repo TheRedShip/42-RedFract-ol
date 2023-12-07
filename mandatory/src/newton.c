@@ -6,26 +6,21 @@
 /*   By: ycontre <ycontre@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/06 14:40:28 by ycontre           #+#    #+#             */
-/*   Updated: 2023/12/06 20:14:37 by ycontre          ###   ########.fr       */
+/*   Updated: 2023/12/07 14:44:07 by ycontre          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../fractol.h"
 
-typedef struct {
-    double real;
-    double imag;
-} Complex;
-
-Complex square_c(Complex z) {
-    Complex result;
+t_complex square_c(t_complex z) {
+    t_complex result;
     result.real = z.real * z.real - z.imag * z.imag;
     result.imag = 2 * z.real * z.imag;
     return result;
 }
 
-Complex cube_c(Complex z) {
-    Complex result;
+t_complex cube_c(t_complex z) {
+    t_complex result;
     double a = z.real;
     double b = z.imag;
 
@@ -35,35 +30,34 @@ Complex cube_c(Complex z) {
     return result;
 }
 
-Complex f(Complex z) {
-	Complex temp;
+t_complex f(t_complex z) {
+	t_complex temp;
 	
 	temp = cube_c(z);
 	temp.real -= 1;
 	return (temp);
 }
 
-Complex f_prime(Complex z) {
-	Complex complex;
+t_complex f_prime(t_complex z) {
+	t_complex t_complex;
 
-	complex.real = 3.0 * z.real * z.real - 3.0 * z.imag * z.imag;
-	complex.imag = 6.0 * z.real * z.imag;
-	return (complex);
+	t_complex.real = 3.0 * z.real * z.real - 3.0 * z.imag * z.imag;
+	t_complex.imag = 6.0 * z.real * z.imag;
+	return (t_complex);
 }
 
-
-Complex substract(Complex a, Complex b)
+t_complex substract(t_complex a, t_complex b)
 {
-	Complex result;
+	t_complex result;
 
 	result.real = a.real - b.real;
 	result.imag = a.imag - b.imag;
 	return (result);
 }
 
-Complex divide(Complex numerator, Complex denominator)
+t_complex divide(t_complex numerator, t_complex denominator)
 {
-	Complex result;
+	t_complex result;
 
 	result.real = (numerator.real * denominator.real + numerator.imag * denominator.imag) / \
 	(denominator.real * denominator.real + denominator.imag * denominator.imag);
@@ -73,34 +67,32 @@ Complex divide(Complex numerator, Complex denominator)
 	return (result);
 }
 
-int newton_method(int x, int y, t_fractol *fractol) {
+int	newton_method(int x, int y, t_fractol *fractol) {
 
 	long double zx = (x / fractol->zoom + fractol->x_set);
 	long double zy = (y / fractol->zoom + fractol->y_set);
 	zx = ((zx / WIDTH) - 0.5) * 4 * ASPECT_RATIO;
 	zy = ((zy / HEIGHT) - 0.5) * 4;
 	
-	Complex result;
+	// zx = 0;
+	// zy = 1;
+	t_complex result;
 	result.real = zx;
 	result.imag = zy;
-	Complex origin;
-	origin.real = zx;
-	origin.imag = zy;
-	Complex ftemp;
-	Complex fprimetemp;
+	t_complex ftemp;
+	t_complex fprimetemp;
 
     int iteration = 0;
     double dst = sqrt(result.real * result.real + result.imag * result.imag);
 
-    double tolerance = 0.001;
-    while (dst > tolerance && iteration < fractol->max_iter)
+    double tolerance = 0.00000001;
+    while (iteration == 0 || ((dst < 1-tolerance|| dst > 1+tolerance) && iteration < (int)fractol->max_iter))
 	{
 		ftemp = f(result);
 		fprimetemp = f_prime(result);
-        result = substract(result, divide(ftemp, fprimetemp));
-		
-        dst = sqrt(result.real * result.real + result.imag * result.imag);
-        iteration++;
+		result = substract(result, divide(ftemp, fprimetemp));
+		dst = sqrt(result.real * result.real + result.imag * result.imag);
+		iteration++;
     }
 	
 	double distance = 0;
@@ -110,18 +102,18 @@ int newton_method(int x, int y, t_fractol *fractol) {
 	distance2 = sqrt((result.real - (-1/2))*(result.real - (-1/2)) + (result.imag - (sqrt(3)/2))*(result.imag - (sqrt(3)/2)));
 	distance3 = sqrt((result.real - (-1/2))*(result.real - (-1/2)) + (result.imag - (-sqrt(3)/2))*(result.imag - (-sqrt(3)/2)));
 
-	double distanceorigin = 0;
-	double distanceorigin2 = 0;
-	double distanceorigin3 = 0;
-	distanceorigin = sqrt((origin.real - 1)*(origin.real - 1) + (origin.imag*origin.imag)) / 8 - 0.5;
-	distanceorigin2 = sqrt((origin.real - (-1/2))*(origin.real - (-1/2)) + (origin.imag - (sqrt(3)/2))*(origin.imag - (sqrt(3)/2))) / 8 - 0.5;
-	distanceorigin3 = sqrt((origin.real - (-1/2))*(origin.real - (-1/2)) + (origin.imag - (-sqrt(3)/2))*(origin.imag - (-sqrt(3)/2))) / 8 - 0.5;
-	if (distance < distance2 && distance < distance3)
-		return hsv_to_hex(0, distanceorigin, 1);
-	else if (distance2 < distance && distance2 < distance3)
-		return hsv_to_hex(120, distanceorigin2, 1);
-	else
-		return hsv_to_hex(240, distanceorigin3, 1);
+	if (iteration == (int)fractol->max_iter)
+		return (0);
+	if (fractol->color_type == 3)
+	{
+		if (distance < distance2 && distance < distance3)
+			return rgb_to_hex(1, iteration, 0, 0.3 * (double)iteration) * 15;
+		else if (distance2 < distance && distance2 < distance3)
+			return rgb_to_hex(1, 0, iteration, 0.3 * (double)iteration) * 15;
+		else
+			return rgb_to_hex(1, 0.f, 0.3 * (double)iteration, iteration) * 15;
+	}
+	return color_smoothing(iteration, fractol);
 }
 
 void newton(t_fractol *fractol)
@@ -129,7 +121,6 @@ void newton(t_fractol *fractol)
 	int y;
 	int x;
 
-	fractol->color_type = 1;
 	y = 0;
 	while (y < HEIGHT)
 	{

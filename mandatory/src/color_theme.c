@@ -17,7 +17,7 @@ int c_frost_sand(double iteration)
 	int max;
 
 	max = 50;
-	Color colors[6] = {
+	t_color colors[6] = {
 		{0, 7, 100},
 		{32, 107, 203},
 		{237, 255, 255},
@@ -27,7 +27,7 @@ int c_frost_sand(double iteration)
 	};
 	while (iteration > max)
 		iteration -= max;
-	Color color = lerp_color_list(colors, 6, iteration, max);
+	t_color color = lerp_color_list(colors, 6, iteration, max);
 	return rgb_to_hex(0, color.r, color.g, color.b);
 }
 
@@ -36,7 +36,7 @@ int c_fire(double iteration)
 	int max;
 
 	max = 100;
-	Color colors[5] = {
+	t_color colors[5] = {
 		{20, 0, 0},
 		{255, 20, 0},
 		{255, 200, 0},
@@ -45,6 +45,6 @@ int c_fire(double iteration)
 	};
 	while (iteration > max)
 		iteration -= max;
-	Color color = lerp_color_list(colors, 5, iteration, max);
+	t_color color = lerp_color_list(colors, 5, iteration, max);
 	return rgb_to_hex(0, color.r, color.g, color.b);
 }

@@ -6,7 +6,7 @@
 /*   By: ycontre <ycontre@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/03 14:54:25 by ycontre           #+#    #+#             */
-/*   Updated: 2023/12/06 15:55:42 by ycontre          ###   ########.fr       */
+/*   Updated: 2023/12/07 13:41:48 by ycontre          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,15 +76,15 @@ int color_smoothing(double iteration, t_fractol *fractol)
 		return (hsv_to_hex(iteration / max, 255, 1));
 }
 
-Color lerp(Color start, Color end, double t) {
-    Color result;
+t_color lerp(t_color start, t_color end, double t) {
+    t_color result;
     result.r = start.r + t * (end.r - start.r);
     result.g = start.g + t * (end.g - start.g);
     result.b = start.b + t * (end.b - start.b);
     return result;
 }
 
-Color lerp_color_list(Color colors[], int num_colors, double step, int max_steps) {
+t_color lerp_color_list(t_color colors[], int num_colors, double step, int max_steps) {
 	double t = (double)step / (double)max_steps;
 	double segment = 1.0f / (double)(num_colors - 1);
 	int i = step / (max_steps / (num_colors - 1));

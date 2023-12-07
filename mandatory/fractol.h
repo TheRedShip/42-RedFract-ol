@@ -6,7 +6,7 @@
 /*   By: ycontre <ycontre@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/30 15:11:53 by ycontre           #+#    #+#             */
-/*   Updated: 2023/12/06 16:57:38 by ycontre          ###   ########.fr       */
+/*   Updated: 2023/12/07 14:54:04 by ycontre          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,24 +27,29 @@ typedef struct s_fractol {
 	t_data	img;
 	int		type;
 	double	max_iter;
-	double 	complex_x;
-	double 	complex_y;
+	double	complex_x;
+	double	complex_y;
 	double	zoom;
-	double 	x_set;
-	double 	y_set;
+	double	x_set;
+	double	y_set;
 	int		pan;
 	int		smoothing;
 	int		color_type;
 	int		color_shift;
 	int		color_shift_v;
-	int 	is_julia_fixed;
+	int		is_julia_fixed;
 }				t_fractol;
 
-typedef struct {
+typedef struct s_color {
     int r;
 	int	g;
 	int	b;
-}	Color;
+}	t_color;
+
+typedef struct s_complex {
+    double real;
+    double imag;
+}	t_complex;
 
 # define WIDTH 1000
 # define HEIGHT 1000
@@ -75,8 +80,8 @@ int		destroy(t_fractol *fractol);
 int		rgb_to_hex(int t, int r, int g, int b);
 int		hsv_to_hex(double hue, double saturation, double value);
 int		color_smoothing(double iteration, t_fractol *fractol);
-Color 	lerp(Color start, Color end, double t);
-Color	lerp_color_list(Color colors[], int num_colors, double step, int max_steps);
+t_color lerp(t_color start, t_color end, double t);
+t_color	lerp_color_list(t_color colors[], int num_colors, double step, int max_steps);
 
 int		c_frost_sand(double iteration);
 int		c_fire(double iteration);
