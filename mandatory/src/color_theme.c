@@ -12,39 +12,57 @@
 
 #include "../fractol.h"
 
-int c_frost_sand(double iteration)
+int	c_frost_sand(double iteration)
 {
-	int max;
+	t_color	colors[6];
+	t_color	color;
 
-	max = 50;
-	t_color colors[6] = {
-		{0, 7, 100},
-		{32, 107, 203},
-		{237, 255, 255},
-		{255, 170, 0},
-		{0, 2, 0},
-		{0, 7, 100}
-	};
-	while (iteration > max)
-		iteration -= max;
-	t_color color = lerp_color_list(colors, 6, iteration, max);
-	return rgb_to_hex(0, color.r, color.g, color.b);
+	colors[0].r = 0;
+	colors[0].g = 7;
+	colors[0].b = 100;
+	colors[1].r = 32;
+	colors[1].g = 107;
+	colors[1].b = 203;
+	colors[2].r = 237;
+	colors[2].g = 255;
+	colors[2].b = 255;
+	colors[3].r = 255;
+	colors[3].g = 170;
+	colors[3].b = 0;
+	colors[4].r = 0;
+	colors[4].g = 2;
+	colors[4].b = 0;
+	colors[5].r = 0;
+	colors[5].g = 7;
+	colors[5].b = 100;
+	while (iteration > 50)
+		iteration -= 50;
+	color = lerp_color_list(colors, 6, iteration, 50);
+	return (rgb_to_hex(0, color.r, color.g, color.b));
 }
 
-int c_fire(double iteration)
+int	c_fire(double iteration)
 {
-	int max;
+	t_color	colors[5];
+	t_color	color;
 
-	max = 100;
-	t_color colors[5] = {
-		{20, 0, 0},
-		{255, 20, 0},
-		{255, 200, 0},
-		{255, 20, 0},
-		{20, 0, 0}
-	};
-	while (iteration > max)
-		iteration -= max;
-	t_color color = lerp_color_list(colors, 5, iteration, max);
-	return rgb_to_hex(0, color.r, color.g, color.b);
+	colors[0].r = 20;
+	colors[0].g = 0;
+	colors[0].b = 0;
+	colors[1].r = 255;
+	colors[1].g = 20;
+	colors[1].b = 0;
+	colors[2].r = 255;
+	colors[2].g = 200;
+	colors[2].b = 0;
+	colors[3].r = 255;
+	colors[3].g = 20;
+	colors[3].b = 0;
+	colors[4].r = 20;
+	colors[4].g = 0;
+	colors[4].b = 0;
+	while (iteration > 100)
+		iteration -= 100;
+	color = lerp_color_list(colors, 5, iteration, 100);
+	return (rgb_to_hex(0, color.r, color.g, color.b));
 }

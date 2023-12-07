@@ -6,12 +6,17 @@
 /*   By: ycontre <ycontre@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/30 15:11:53 by ycontre           #+#    #+#             */
-/*   Updated: 2023/12/07 14:54:04 by ycontre          ###   ########.fr       */
+/*   Updated: 2023/12/07 17:08:07 by ycontre          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef FRACTOL_H
 # define FRACTOL_H
+
+# include "../libft/libft.h"
+# include "../minilibx-linux/mlx.h"
+# include <stdio.h>
+# include <math.h>
 
 typedef struct s_data {
 	void	*img;
@@ -36,54 +41,55 @@ typedef struct s_fractol {
 	int		smoothing;
 	int		color_type;
 	int		color_shift;
+	double	ratio;
 	int		color_shift_v;
 	int		is_julia_fixed;
 }				t_fractol;
 
 typedef struct s_color {
-    int r;
+	int	r;
 	int	g;
 	int	b;
 }	t_color;
 
 typedef struct s_complex {
-    double real;
-    double imag;
+	double	real;
+	double	imag;
 }	t_complex;
 
 # define WIDTH 1000
-# define HEIGHT 1000
-# define ASPECT_RATIO 1
+# define HEIGHT 800
 
-# define M_LN2 0.30102999566
+void			mandelbrot(t_fractol *fractol);
+void			julia(t_fractol *fractol);
+void			burningship(t_fractol *fractol);
+void			newton(t_fractol *fractol);
 
-# include "../libft/libft.h"
-# include "../minilibx-linux/mlx.h"
-# include <stdio.h>
-# include <math.h>
+void			print_fractal(t_fractol *fractol);
+t_data			create_window(void **mlx, void **mlx_win, t_fractol *fractol);
+void			put_pixel(t_data *data, int x, int y, int color);
 
-void	mandelbrot(t_fractol *fractol);
-void	julia(t_fractol *fractol);
-void	burningship(t_fractol *fractol);
-void	newton(t_fractol *fractol);
+void			print_fractal(t_fractol *fractol);
 
-void	print_fractal(t_fractol *fractol);
-t_data	create_window(void **mlx, void **mlx_win);
-void	put_pixel(t_data *data, int x, int y, int color);
+int				mouse_hook(int button, int x, int y, t_fractol *f);
+int				key_hook(int key, t_fractol *f);
+int				destroy(t_fractol *fractol);
 
-void	print_fractal(t_fractol *fractol);
+int				rgb_to_hex(int t, int r, int g, int b);
+int				hsv_to_hex(double hue, double saturation, double value);
+int				color_smoothing(double iteration, t_fractol *fractol);
+t_color			lerp(t_color start, t_color end, double t);
+t_color			lerp_color_list(t_color colors[], int num_colors,
+					double step, int max_steps);
 
-int		mouse_hook(int button, int x, int y, t_fractol *f);
-int		key_hook(int key, t_fractol *f);
-int		destroy(t_fractol *fractol);
+int				c_frost_sand(double iteration);
+int				c_fire(double iteration);
 
-int		rgb_to_hex(int t, int r, int g, int b);
-int		hsv_to_hex(double hue, double saturation, double value);
-int		color_smoothing(double iteration, t_fractol *fractol);
-t_color lerp(t_color start, t_color end, double t);
-t_color	lerp_color_list(t_color colors[], int num_colors, double step, int max_steps);
+t_complex		f(t_complex z);
+t_complex		f_prime(t_complex z);
+t_complex		substract(t_complex a, t_complex b);
+t_complex		divide(t_complex n, t_complex d);
 
-int		c_frost_sand(double iteration);
-int		c_fire(double iteration);
+int				destroy(t_fractol *fractol);
 
 #endif

@@ -6,7 +6,7 @@
 /*   By: ycontre <ycontre@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/30 15:12:57 by ycontre           #+#    #+#             */
-/*   Updated: 2023/12/06 20:10:35 by ycontre          ###   ########.fr       */
+/*   Updated: 2023/12/07 17:09:02 by ycontre          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,7 @@ void	init_fractol(t_fractol *fractol)
 	fractol->y_set = 0;
 	fractol->complex_x = 0;
 	fractol->complex_y = 0;
+	fractol->type = 0;
 	fractol->is_julia_fixed = 0;
 	fractol->pan = 0;
 	fractol->color_type = 0;
@@ -39,12 +40,12 @@ void	init_fractol(t_fractol *fractol)
 	fractol->max_iter = 50;
 	fractol->color_shift = 0;
 	fractol->color_shift_v = 150;
-	fractol->img = create_window(&fractol->mlx, &fractol->mlx_win);
+	fractol->ratio = (double)WIDTH / (double)HEIGHT;
+	fractol->img = create_window(&fractol->mlx, &fractol->mlx_win, fractol);
 }
 
 int	choose_fractol(t_fractol *fractol, char **argv, int argc)
 {
-	fractol->type = 0;
 	if (ft_strcmp(argv[1], "mandelbrot") == 0)
 	{
 		fractol->x_set -= 300;
@@ -62,39 +63,41 @@ int	choose_fractol(t_fractol *fractol, char **argv, int argc)
 		fractol->color_type = 3;
 	}
 	else if (ft_strcmp(argv[1], "newton") == 0)
+	{
+		fractol->color_type = 3;
 		fractol->type = 4;
+	}
 	else
 		return (-1);
 	print_fractal(fractol);
 	return (1);
 }
 
-int	loop_hook(t_fractol *fractol)
+int	loop_hook(t_fractol *f)
 {
 	int	x;
 	int	y;
 
-	if (fractol->is_julia_fixed)
+	if (f->is_julia_fixed)
 	{
-		mlx_mouse_get_pos(fractol->mlx, fractol->mlx_win, &x, &y);
-		double aspect_ratio = (double)WIDTH / (double)HEIGHT;
-		fractol->complex_x = ((double)x - WIDTH / 2) * 2 / (WIDTH / 2) * aspect_ratio;
-		fractol->complex_y = ((double)y - HEIGHT / 2) * 2 / (HEIGHT / 2);
-		print_fractal(fractol);
+		mlx_mouse_get_pos(f->mlx, f->mlx_win, &x, &y);
+		f->complex_x = ((double)x - WIDTH / 2) * 2 / (WIDTH / 2) * f->ratio;
+		f->complex_y = ((double)y - HEIGHT / 2) * 2 / (HEIGHT / 2);
+		print_fractal(f);
 	}
-	else if (fractol->pan)
+	else if (f->pan)
 	{
-		mlx_mouse_get_pos(fractol->mlx, fractol->mlx_win, &x, &y);
-		fractol->x_set += (((x - WIDTH/4) / fractol->zoom) - (x / (fractol->zoom * 1.5)));
-		fractol->y_set += (((y - HEIGHT/4) / fractol->zoom) - (y / (fractol->zoom * 1.5)));
-		print_fractal(fractol);
+		mlx_mouse_get_pos(f->mlx, f->mlx_win, &x, &y);
+		f->x_set += (((x - WIDTH / 4) / f->zoom) - (x / (f->zoom * 1.5)));
+		f->y_set += (((y - HEIGHT / 4) / f->zoom) - (y / (f->zoom * 1.5)));
+		print_fractal(f);
 	}
-	else if (fractol->color_shift)
+	else if (f->color_shift)
 	{
-		fractol->color_shift_v += 3;
-		if (fractol->color_shift_v > 360)
-			fractol->color_shift_v = 0;
-		print_fractal(fractol);
+		f->color_shift_v += 3;
+		if (f->color_shift_v > 360)
+			f->color_shift_v = 0;
+		print_fractal(f);
 	}
 	return (0);
 }
@@ -102,7 +105,7 @@ int	loop_hook(t_fractol *fractol)
 int	main(int argc, char **argv)
 {
 	t_fractol	*fractol;
-	
+
 	if (argc == 2 || argc == 4)
 	{
 		fractol = ft_calloc(1, sizeof(t_fractol));
@@ -111,7 +114,8 @@ int	main(int argc, char **argv)
 		init_fractol(fractol);
 		if (choose_fractol(fractol, argv, argc) == -1)
 		{
-			ft_putstr_fd("Usage:\n\t./fractol mandelbrot\n\t./fractol julia <float> <float>\n\t./fractol burningship\n\t./fractol newton\n", 1);
+			ft_putstr_fd("Usage:\n\t./fractol mandelbrot\n\t./fractol julia \
+		<float> <float>\n\t./fractol burningship\n\t./fractol newton\n", 1);
 			destroy(fractol);
 		}
 		mlx_mouse_hook(fractol->mlx_win, mouse_hook, fractol);
@@ -122,6 +126,7 @@ int	main(int argc, char **argv)
 		destroy(fractol);
 	}
 	else
-		ft_putstr_fd("Usage:\n\t./fractol mandelbrot\n\t./fractol julia <float> <float>\n\t./fractol burningship\n\t./fractol newton\n", 1);
+		ft_putstr_fd("Usage:\n\t./fractol mandelbrot\n\t./fractol julia \
+		<float> <float>\n\t./fractol burningship\n\t./fractol newton\n", 1);
 	return (0);
 }

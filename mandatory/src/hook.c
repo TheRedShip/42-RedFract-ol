@@ -6,36 +6,36 @@
 /*   By: ycontre <ycontre@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/01 17:08:19 by ycontre           #+#    #+#             */
-/*   Updated: 2023/12/07 12:39:06 by ycontre          ###   ########.fr       */
+/*   Updated: 2023/12/07 16:21:33 by ycontre          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../fractol.h"
 
-int	mouse_hook(int button, int x, int y, t_fractol *fractol)
+int	mouse_hook(int button, int x, int y, t_fractol *f)
 {
-	double zoom_num;
-	
+	double	zoom_num;
+
 	zoom_num = 1.2;
 	if (button == 4)
 	{
-		fractol->x_set = (x / fractol->zoom + fractol->x_set) - (x / (fractol->zoom * zoom_num));
-		fractol->y_set = (y / fractol->zoom + fractol->y_set) - (y / (fractol->zoom * zoom_num));
-		fractol->zoom *= zoom_num;
-		if (fractol->max_iter < 150)
-			fractol->max_iter += 0.5;
+		f->x_set = (x / f->zoom + f->x_set) - (x / (f->zoom * zoom_num));
+		f->y_set = (y / f->zoom + f->y_set) - (y / (f->zoom * zoom_num));
+		f->zoom *= zoom_num;
+		if (f->max_iter < 150)
+			f->max_iter += 0.5;
 	}
 	else if (button == 5)
 	{
-		fractol->x_set = (x / fractol->zoom + fractol->x_set) - (x / (fractol->zoom / zoom_num));
-		fractol->y_set = (y / fractol->zoom + fractol->y_set) - (y / (fractol->zoom / zoom_num));
-		fractol->zoom /= zoom_num;
-		if (fractol->max_iter > 50)
-			fractol->max_iter -= 0.5;
+		f->x_set = (x / f->zoom + f->x_set) - (x / (f->zoom / zoom_num));
+		f->y_set = (y / f->zoom + f->y_set) - (y / (f->zoom / zoom_num));
+		f->zoom /= zoom_num;
+		if (f->max_iter > 50)
+			f->max_iter -= 0.5;
 	}
 	else if (button == 3)
-		fractol->pan = !fractol->pan;
-	print_fractal(fractol);
+		f->pan = !f->pan;
+	print_fractal(f);
 	return (0);
 }
 
