@@ -6,7 +6,7 @@
 /*   By: ycontre <ycontre@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/30 15:12:57 by ycontre           #+#    #+#             */
-/*   Updated: 2023/12/07 17:09:02 by ycontre          ###   ########.fr       */
+/*   Updated: 2023/12/08 13:54:12 by ycontre          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,7 @@ void	init_fractol(t_fractol *fractol)
 
 int	choose_fractol(t_fractol *fractol, char **argv, int argc)
 {
-	if (ft_strcmp(argv[1], "mandelbrot") == 0)
+	if (ft_strcmp(argv[1], "mandelbrot") == 0 && argc == 2)
 	{
 		fractol->x_set -= 300;
 		fractol->type = 1;
