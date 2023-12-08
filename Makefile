@@ -69,8 +69,7 @@ clean:
 
 fclean:			clean
 			make --quiet fclean -C ${LIBPATH}
-			make --quiet clean -C ${MINILIBXPATH}
-			rm -f ${NAME} ${NAME_BONUS} ${NAME_TEST}
+			rm -f ${NAME} ${NAME_BONUS}
 
 re:				fclean all
 
