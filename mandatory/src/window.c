@@ -6,7 +6,7 @@
 /*   By: ycontre <ycontre@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/01 14:40:24 by ycontre           #+#    #+#             */
-/*   Updated: 2023/12/07 17:10:42 by ycontre          ###   ########.fr       */
+/*   Updated: 2023/12/08 13:15:19 by ycontre          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,13 @@ t_data	create_window(void **mlx, void **mlx_win, t_fractol *fractol)
 		exit(1);
 	}
 	*mlx_win = mlx_new_window(*mlx, WIDTH, HEIGHT, "Fract'ol");
+	if (!*mlx_win)
+	{
+		mlx_destroy_display(*mlx);
+		free(*mlx);
+		free(fractol);
+		exit(EXIT_FAILURE);
+	}
 	img.img = mlx_new_image(*mlx, WIDTH, HEIGHT);
 	img.addr = mlx_get_data_addr(img.img, &img.bits_per_pixel, &img.line_length,
 			&img.endian);

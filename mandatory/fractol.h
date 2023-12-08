@@ -6,7 +6,7 @@
 /*   By: ycontre <ycontre@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/30 15:11:53 by ycontre           #+#    #+#             */
-/*   Updated: 2023/12/07 17:08:07 by ycontre          ###   ########.fr       */
+/*   Updated: 2023/12/08 13:10:12 by ycontre          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,7 @@ typedef struct s_complex {
 	double	imag;
 }	t_complex;
 
-# define WIDTH 1000
+# define WIDTH 800
 # define HEIGHT 800
 
 void			mandelbrot(t_fractol *fractol);
