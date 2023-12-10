@@ -19,16 +19,24 @@ This project is a fractal generator implemented in C, created for the 42's schoo
 
 ## Screenshots 📸
 
-![Mandelbrot](ressources/mandelbrot.PNG)
+<p align="center">
+	<img src="https://raw.githubusercontent.com/TheRedShip/RedFract-ol/master/ressources/mandelbrot.PNG" width="700">
+</p>
 *Mandelbrot fractal*
 
-![Julia Set](ressources/julia.PNG)
+<p align="center">
+	<img src="https://raw.githubusercontent.com/TheRedShip/RedFract-ol/master/ressources/julia.PNG" width="700">
+</p>
 *Julia 0.355 + 0.355i set*
 
-![Burningship](ressources/burningship.PNG)
+<p align="center">
+	<img src="https://raw.githubusercontent.com/TheRedShip/RedFract-ol/master/ressources/burningship.PNG" width="700">
+</p>
 *Burningship fractal*
 
-![Newton](ressources/newton.PNG)
+<p align="center">
+	<img src="https://raw.githubusercontent.com/TheRedShip/RedFract-ol/master/ressources/newton.PNG" width="700">
+</p>
 *Newton fractal*
 
 ## Usage ⚙️
