@@ -1,4 +1,4 @@
-# RedFract-ol 🌀
+# RedFract-ol
 
 ## Overview 🌐
 
